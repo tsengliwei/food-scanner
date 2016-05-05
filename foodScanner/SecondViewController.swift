@@ -112,6 +112,7 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     highlightViewRect = barCodeObject.bounds
                     
                     detectionString = (metadata as! AVMetadataMachineReadableCodeObject).stringValue
+                    
                     if(detectionString != nil) {
                         self.session.stopRunning()
                         
