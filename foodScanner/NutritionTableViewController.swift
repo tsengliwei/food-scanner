@@ -12,6 +12,8 @@ class NutritionTableViewController: UITableViewController {
     
     var nutritionInfoRaw : AnyObject?
     var nutritionInfo : Dictionary<String, AnyObject>?
+    var arrayofKeys : [String]?
+    var arrayofValues : [AnyObject]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +42,31 @@ class NutritionTableViewController: UITableViewController {
             nutritionInfo?.removeValueForKey("nf_refuse_pct")
             nutritionInfo?.removeValueForKey("leg_loc_id")
             nutritionInfo?.removeValueForKey("updated_at")
-//            nutritionInfo?.removeValueForKey("leg_loc_id")
+//          nutritionInfo?.removeValueForKey("leg_loc_id")
             
-            print(nutritionInfo)
+            
+            arrayofKeys = ["Calories", "Calories from Fat", "Total fat", "Saturated Fat", "Trans Fat", "Polyunsaturated Fat", "Monounsaturated Fat", "Cholesterol", "Sodium", "Total Carbohydrate", "Dietary Fiber", "Sugars", "Protein","Vitamin A", "Vitamin C", "Calcium", "Iron"]
+            print(Int(nutritionInfo?["nf_calories"] as! Int))
+            let info1 = nutritionInfo!["nf_calories"]
+            let info2 = nutritionInfo?["nf_calories_from_fat"]
+            let info3 = nutritionInfo?["nf_total_fat"]
+            let info4 = nutritionInfo?["nf_saturated_fat"]
+            let info5 = nutritionInfo?["nf_trans_fatty_acid"]
+            let info6 = nutritionInfo?["nf_polyunsaturated_fat"]
+            let info7 = nutritionInfo?["nf_monounsaturated_fat"]
+            let info8 = nutritionInfo?["nf_cholesterol"]
+            let info9 = nutritionInfo?["nf_sodium"]
+            let info10 = nutritionInfo?["nf_total_carbohydrate"]
+            let info11 = nutritionInfo?["nf_dietary_fiber"]
+            let info12 = nutritionInfo?["nf_sugars"]
+            let info13 = nutritionInfo?["nf_protein"]
+            let info14 = nutritionInfo?["nf_vitamin_a_dv"]
+            let info15 = nutritionInfo?["nf_vitamin_c_dv"]
+            let info16 = nutritionInfo?["nf_calcium_dv"]
+            let info17 = nutritionInfo?["nf_iron_dv"]
+                
+            arrayofValues = [info1!,info2!,info3!,info4!,info5!,info6!,info7!,info8!,info9!,info10!,info11!,info12!,info13!,info14!,info15!,info16!,info17!]
+//            arrayofValues = [Int(nutritionInfo!["nf_calories"] as? Int)!, Int(nutritionInfo?["nf_calories_from_fat"] as? Int), Int(nutritionInfo?["nf_total_fat"] as? Int), Int(nutritionInfo?["nf_saturated_fat"] as? Int), Int(nutritionInfo?["nf_trans_fatty_acid"] as? Int), Int(nutritionInfo?["nf_polyunsaturated_fat"] as? Int), Int(nutritionInfo?["nf_monounsaturated_fat"] as? Int), Int(nutritionInfo?["nf_cholesterol"] as? Int), Int(nutritionInfo?["nf_sodium"] as? Int), Int(nutritionInfo?["nf_total_carbohydrate"] as? Int), Int(nutritionInfo?["nf_dietary_fiber"] as? Int), Int(nutritionInfo?["nf_sugars"] as? Int), Int(nutritionInfo?["nf_protein"] as? Int), Int(nutritionInfo?["nf_vitamin_a_dv"] as? Int), Int(nutritionInfo?["nf_vitamin_c_dv"] as? Int), Int(nutritionInfo?["nf_calcium_dv"] as? Int), Int(nutritionInfo?["nf_iron_dv"] as? Int)]
         } else {
             debugPrint(nutritionInfoRaw)
         }
@@ -58,15 +82,17 @@ class NutritionTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (nutritionInfo?.count)!
+        return 17
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel!.text = Array(nutritionInfo!.keys)[indexPath.row] // nutrition name 
         
-        let value = Array(nutritionInfo!.values)[indexPath.row]
+       cell.textLabel!.text = arrayofKeys![indexPath.row] // nutrition name
+                //let arrayOfKeys: [String]
+        let value = arrayofValues![indexPath.row]
+        print(nutritionInfo)
         if value is NSNull {
             cell.detailTextLabel?.text = "N/A"
         } else {
