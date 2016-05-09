@@ -15,23 +15,28 @@ class NutritionTableViewController: UITableViewController {
     var arrayofKeys : [String]?
     var arrayofValues : [AnyObject]?
     
+    @IBOutlet weak var shareSwitch: UISwitch!
+    
+    
+    @IBAction func post(sender: AnyObject) {
+        if shareSwitch.on {
+            print("Switch is on")
+        } else {
+            print("Switch is off")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         modifyNutritionInfo()
-//        self.tableView.registerClass(UITableViewCell(), forCellReuseIdentifier: "Cell")
+        //        self.tableView.registerClass(UITableViewCell(), forCellReuseIdentifier: "Cell")
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     // MARK: - Helper
     func modifyNutritionInfo() {
         if let jsonResult = nutritionInfoRaw as? Dictionary<String, AnyObject> {
@@ -46,7 +51,7 @@ class NutritionTableViewController: UITableViewController {
             
             
             arrayofKeys = ["Calories", "Calories from Fat", "Total fat", "Saturated Fat", "Trans Fat", "Polyunsaturated Fat", "Monounsaturated Fat", "Cholesterol", "Sodium", "Total Carbohydrate", "Dietary Fiber", "Sugars", "Protein","Vitamin A", "Vitamin C", "Calcium", "Iron"]
-            print(Int(nutritionInfo?["nf_calories"] as! Int))
+//            print(Int(nutritionInfo?["nf_calories"] as! Int))
             let info1 = nutritionInfo!["nf_calories"]
             let info2 = nutritionInfo?["nf_calories_from_fat"]
             let info3 = nutritionInfo?["nf_total_fat"]
@@ -92,7 +97,7 @@ class NutritionTableViewController: UITableViewController {
        cell.textLabel!.text = arrayofKeys![indexPath.row] // nutrition name
                 //let arrayOfKeys: [String]
         let value = arrayofValues![indexPath.row]
-        print(nutritionInfo)
+//        print(nutritionInfo)
         if value is NSNull {
             cell.detailTextLabel?.text = "N/A"
         } else {
@@ -103,7 +108,11 @@ class NutritionTableViewController: UITableViewController {
         return cell
     }
     
-
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

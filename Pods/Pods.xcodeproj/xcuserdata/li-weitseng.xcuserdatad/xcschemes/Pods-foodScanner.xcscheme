@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C05CA45A0303B14CCEF2E82A"
+               BlueprintIdentifier = "7395B2AD01CDA18DB88EBEB5"
                BuildableName = "Pods_foodScanner.framework"
                BlueprintName = "Pods-foodScanner"
                ReferencedContainer = "container:Pods.xcodeproj">

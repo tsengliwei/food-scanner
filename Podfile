@@ -6,5 +6,6 @@ use_frameworks!
 
 target 'foodScanner' do
     pod 'Alamofire', '~> 3.3'
+    pod 'KinveyKit'
 end
 
