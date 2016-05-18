@@ -52,7 +52,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     var signupActive = false
     
-    @IBOutlet var username: UITextField!
+    @IBOutlet var username: UITextField! // user's phone number
     
     @IBOutlet var password: UITextField!
     

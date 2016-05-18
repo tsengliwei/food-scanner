@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Chatto.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ChattoAdditions.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-foodScanner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5AF3B47A96A8C9318953975AAB93FCBB</key>
+		<key>334D5542124437397E9E2C8EA37D8E2B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5B5193E1CA3814CE28783550790406EC</key>
+		<key>8F3312F1248B3B29F6796244802D5431</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>992F9068EADDB5151A40ACFE7EAFE423</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C1DB08F38B3E51A756A247511BEE0B92</key>
 		<dict>
 			<key>primary</key>
 			<true/>

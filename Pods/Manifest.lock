@@ -1,13 +1,20 @@
 PODS:
   - Alamofire (3.3.1)
+  - Chatto (1.0.0)
+  - ChattoAdditions (1.0.0):
+    - Chatto
   - KinveyKit (1.40.7)
 
 DEPENDENCIES:
   - Alamofire (~> 3.3)
+  - Chatto (= 1.0.0)
+  - ChattoAdditions (= 1.0.0)
   - KinveyKit
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  Chatto: 531b14bbb7d21dfc50a86fc4ff70a90367171403
+  ChattoAdditions: 27c7b59f4c1b1d51d5f37c7199164982fcc59edf
   KinveyKit: 76c5e4b2865b6f490d481845c88d1b5d5ed986f7
 
 COCOAPODS: 0.38.2

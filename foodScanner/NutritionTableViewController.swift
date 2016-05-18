@@ -7,24 +7,20 @@
 //
 
 import UIKit
+import CoreLocation
+import MessageUI
 
-class NutritionTableViewController: UITableViewController {
+
+class NutritionTableViewController: UITableViewController, CLLocationManagerDelegate, MFMessageComposeViewControllerDelegate {
     
     var nutritionInfoRaw : AnyObject?
     var nutritionInfo : Dictionary<String, AnyObject>?
     var arrayofKeys : [String]?
     var arrayofValues : [AnyObject]?
-    
+    let locationManager = CLLocationManager()
+    var phoneNumbers : [String] = []
+
     @IBOutlet weak var shareSwitch: UISwitch!
-    
-    
-    @IBAction func post(sender: AnyObject) {
-        if shareSwitch.on {
-            print("Switch is on")
-        } else {
-            print("Switch is off")
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +28,57 @@ class NutritionTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        // For use in background
+        self.locationManager.requestAlwaysAuthorization()
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        } else{
+            print("Location service disabled");
+        }
+        
         modifyNutritionInfo()
-        //        self.tableView.registerClass(UITableViewCell(), forCellReuseIdentifier: "Cell")
     }
+    
+    @IBAction func post(sender: AnyObject) {
+        let request = PairingRequest()
+        let collection = KCSCollection(fromString: "PairingRequests", ofClass: PairingRequest.self)
+        let store = KCSAppdataStore(collection: collection, options: nil)
+        
+        request.brand_name = nutritionInfo!["brand_name"]! as? String
+        request.item_name = nutritionInfo!["item_name"]! as? String
+        request.geocoord = self.locationManager.location
+        request.phone = KCSUser.activeUser().username
+        request.date = NSDate()
+        
+        store.saveObject(
+            request,
+            withCompletionBlock: { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
+                if errorOrNil != nil {
+                    //save failed
+                    print("Save failed, with error: %@", errorOrNil.localizedFailureReason)
+                } else {
+                    //save was successful
+                    
+                    print("Successfully saved request (id='%@').", (objectsOrNil[0] as! NSObject).kinveyObjectId())
+                }
+            },
+            withProgressBlock: nil)
+
+        if shareSwitch.on {
+            pair()
+        } else {
+          print("Switch is off")
+        }
+    }
+    
+    
+    
+    
     // MARK: - Helper
     func modifyNutritionInfo() {
         if let jsonResult = nutritionInfoRaw as? Dictionary<String, AnyObject> {
@@ -77,6 +119,85 @@ class NutritionTableViewController: UITableViewController {
         }
     }
 
+    func pair() {
+        
+        let queries = KCSQuery(
+            onField: "item_name",
+            withExactMatchForValue: nutritionInfo!["item_name"]! as? String
+        )
+        
+        queries.addQuery(KCSQuery(
+            onField: "brand_name",
+            withExactMatchForValue: nutritionInfo!["brand_name"]! as? String
+            ))
+
+        queries.addQuery(KCSQuery(onField: "date", usingConditionalPairs: [
+            KCSQueryConditional.KCSGreaterThan.rawValue, String(NSDate(timeIntervalSinceNow: -900)), // 15 minutes ago
+            ]
+            ))
+
+        queries.addQuery(KCSQuery(
+            onField: KCSEntityKeyGeolocation,
+            usingConditionalPairs: [
+                KCSQueryConditional.KCSNearSphere.rawValue, [self.locationManager.location!.coordinate.longitude, self.locationManager.location!.coordinate.latitude],
+                KCSQueryConditional.KCSMaxDistance.rawValue, 0.01
+            ]
+            ))
+        
+        print(queries.debugDescription)
+        let collection = KCSCollection(fromString: "PairingRequests", ofClass: PairingRequest.self)
+        let store = KCSAppdataStore(collection: collection, options: nil)
+        store.queryWithQuery(
+            queries,
+            withCompletionBlock: { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
+                if errorOrNil != nil {
+                    //fetch failed
+                    print("fetch failed, with error: %@", errorOrNil.localizedFailureReason)
+                } else {
+                    //fetch was successful
+                    print(objectsOrNil)
+                    for object in objectsOrNil {
+                        let obj = object as! PairingRequest
+                        self.phoneNumbers.append(obj.phone!)
+                        print(self.phoneNumbers)
+                    }
+                    if self.phoneNumbers.count >= 1 {
+                        self.sendMessage()
+                    }
+                }
+                
+            },
+            withProgressBlock: nil
+        )
+    }
+    
+    func sendMessage () {
+        let messageVC = MFMessageComposeViewController()
+        let item_name = nutritionInfo!["item_name"]! as? String
+        let brand_name = nutritionInfo!["brand_name"]! as? String
+        messageVC.body = "Hi, I'm also buying " + brand_name! + ": " + item_name! + ", wanna pair up?";
+        print(self.phoneNumbers)
+        messageVC.recipients = self.phoneNumbers
+        messageVC.messageComposeDelegate = self;
+        self.presentViewController(messageVC, animated: false, completion: nil)
+    }
+    
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        switch (result) {
+        case MessageComposeResultCancelled:
+            print("Message was cancelled")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        case MessageComposeResultFailed:
+            print("Message failed")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        case MessageComposeResultSent:
+            print("Message was sent")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        default:
+            break;
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

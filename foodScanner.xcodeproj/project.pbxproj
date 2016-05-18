@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C41D6DE98C90EAA1749CD5BD /* Pods_foodScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5366DBCA2CCE281EAC15632 /* Pods_foodScanner.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C42762521CE061630032EB67 /* PairingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42762511CE061630032EB67 /* PairingRequest.swift */; };
 		C45A558B1CCC1F7900616514 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45A558A1CCC1F7900616514 /* AppDelegate.swift */; };
 		C45A558F1CCC1F7900616514 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45A558E1CCC1F7900616514 /* ScannerViewController.swift */; };
 		C45A55921CCC1F7900616514 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C45A55901CCC1F7900616514 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		21AC3EFA860D7F6352A4586E /* Pods-foodScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodScanner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-foodScanner/Pods-foodScanner.debug.xcconfig"; sourceTree = "<group>"; };
+		C42762511CE061630032EB67 /* PairingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingRequest.swift; sourceTree = "<group>"; };
 		C45A55871CCC1F7900616514 /* foodScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foodScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45A558A1CCC1F7900616514 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C45A558E1CCC1F7900616514 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				C45A55951CCC1F7900616514 /* LaunchScreen.storyboard */,
 				C45A55981CCC1F7900616514 /* Info.plist */,
 				C4CC13BD1CDAF80200ADB1D6 /* Bridging-Header.h */,
+				C42762511CE061630032EB67 /* PairingRequest.swift */,
 			);
 			path = foodScanner;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42762521CE061630032EB67 /* PairingRequest.swift in Sources */,
 				C4CC13C31CDB003700ADB1D6 /* DashboardTableViewController.swift in Sources */,
 				C45A559F1CCC88DF00616514 /* NutritionTableViewController.swift in Sources */,
 				C4CC13C51CDB006100ADB1D6 /* AccountViewController.swift in Sources */,

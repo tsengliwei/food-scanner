@@ -7,5 +7,7 @@ use_frameworks!
 target 'foodScanner' do
     pod 'Alamofire', '~> 3.3'
     pod 'KinveyKit'
+    pod 'Chatto', '= 1.0.0'
+    pod 'ChattoAdditions', '= 1.0.0' # if you want to use the cells or the input component
 end
 
