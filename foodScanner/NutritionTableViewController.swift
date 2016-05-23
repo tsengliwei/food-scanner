@@ -10,17 +10,28 @@ import UIKit
 import CoreLocation
 import MessageUI
 
+struct variables{
+    static var arrayofKeys : [String]?
+    static var arrayofValues : [AnyObject]?
+    static var cal : AnyObject?
+    static var fat : NSValue?
+    static var carbo : NSValue?
+    static var protein : NSValue?
+    static var sodium : NSValue?
+    static var diebete : Bool?
+    static var hypertension : Bool?
+}
+
 
 class NutritionTableViewController: UITableViewController, CLLocationManagerDelegate, MFMessageComposeViewControllerDelegate {
     
     var nutritionInfoRaw : AnyObject?
     var nutritionInfo : Dictionary<String, AnyObject>?
-    var arrayofKeys : [String]?
-    var arrayofValues : [AnyObject]?
     let locationManager = CLLocationManager()
     var phoneNumbers : [String] = []
 
     @IBOutlet weak var shareSwitch: UISwitch!
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +55,89 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
         modifyNutritionInfo()
     }
     
+    
     @IBAction func post(sender: AnyObject) {
+        
+        if shareSwitch.on {
+            print("Switch is on")
+        } else {
+            print("Switch is off")
+        }
+        let savedcal = KCSUser.activeUser().getValueForAttribute("calories") as! Int
+        let savedfat = KCSUser.activeUser().getValueForAttribute("fat") as! Int
+        let savedcarbo = KCSUser.activeUser().getValueForAttribute("carbo") as! Int
+        let savedprotein = KCSUser.activeUser().getValueForAttribute("protein") as! Int
+        let savedsodium = KCSUser.activeUser().getValueForAttribute("sodium") as! Int
+        variables.cal = nutritionInfo?["nf_calories"] as! Int + savedcal
+        variables.fat = nutritionInfo?["nf_total_fat"] as! Int + savedfat
+        variables.carbo = nutritionInfo?["nf_total_carbohydrate"] as! Int + savedcarbo
+        variables.protein = nutritionInfo?["nf_protein"] as! Int + savedprotein
+        variables.sodium = nutritionInfo?["nf_sodium"] as! Int + savedsodium
+        print("helloo")
+print(variables.cal)
+        
+        
+        KCSUser.activeUser().setValue(variables.cal, forAttribute:"calories")
+        KCSUser.activeUser().setValue(variables.fat, forAttribute: "fat")
+        KCSUser.activeUser().setValue(variables.carbo, forAttribute: "carbo")
+        KCSUser.activeUser().setValue(variables.protein, forAttribute: "protein")
+        KCSUser.activeUser().setValue(variables.sodium, forAttribute: "sodium")
+        
+        KCSUser.activeUser().saveWithCompletionBlock { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
+            //print("saved user: %@ - %@", (errorOrNil == nil), errorOrNil)
+        }
+        
+        //        let savedCal = KCSUser.activeUser().getValueForAttribute("calories") as? NSValue
+        
+        //        let userinfo = userInfo()
+//        let collection1 = KCSCollection(fromString: "userinfo", ofClass: userInfo.self)
+//        let store1 = KCSAppdataStore(collection: collection1, options: nil)
+//        
+//        userinfo.calories = nutritionInfo?["nf_calories"] as? NSValue
+//        userinfo.fat = nutritionInfo?["nf_total_fat"] as? NSValue
+//        userinfo.carbo = nutritionInfo?["nf_total_carbohydrate"] as? NSValue
+//        userinfo.protein = nutritionInfo?["nf_protein"] as? NSValue
+//        userinfo.sodium = nutritionInfo?["nf_sodium"] as? NSValue
+//        
+//        userinfo.date = NSDate(timeIntervalSince1970: 1352149171) //sample date
+//        store1.saveObject(
+//            userinfo,
+//            withCompletionBlock: { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
+//                if errorOrNil != nil {
+//                    //save failed
+//                    print("Save failed, with error: %@", errorOrNil.localizedFailureReason)
+//                } else {
+//                    //save was successful
+//                    print("Successfully saved event (id='%@').", (objectsOrNil[0] as! NSObject).kinveyObjectId())
+//                    print("my id is '%@'", userinfo)
+//                }
+//            },
+//            withProgressBlock: nil
+//        )
+//        
+//        let queries = KCSQuery(
+//            onField: "item_name",
+//            withExactMatchForValue: nutritionInfo!["item_name"]! as? String
+//        )
+//
+//        let myId = KCSUser.activeUser().userId
+//        print(myId)
+//        store1.loadObjectWithID(
+//            myId,
+//            withCompletionBlock: { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
+//                if errorOrNil == nil {
+//                    let myInfo = objectsOrNil[0] as! userInfo
+//                    variables.cal = myInfo.calories // will be realized Invitation object
+//                    variables.fat = myInfo.fat
+//                    variables.carbo = myInfo.carbo
+//                    variables.protein = myInfo.protein
+//                    variables.sodium = myInfo.sodium
+//                    print("hello world")
+//                }
+//            },
+//            withProgressBlock: nil
+//        )
+        
         let request = PairingRequest()
         let collection = KCSCollection(fromString: "PairingRequests", ofClass: PairingRequest.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
@@ -73,11 +166,28 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
             pair()
         } else {
           print("Switch is off")
+             //self.performSegueWithIdentifier("dashboard", sender: self)
         }
+       
     }
     
     
-    
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "dashboard" {
+            // Setup new view controller
+            if let destinationVC = segue.destinationViewController as? DashboardViewController{
+                print(variables.sodium)
+                print("helo")
+                destinationVC.calories.progress = Float(variables.cal as! Double )/2000
+                destinationVC.fatpro.progress = Float(variables.fat as! Double)/65
+                destinationVC.carbopro.progress = Float(variables.cal as!Double)/300
+                destinationVC.proteinpro.progress = Float(variables.protein as! Double)/50
+                destinationVC.sodiumpro.progress = Float(variables.sodium as! Double)/2400
+                
+            }
+        }
+    }
+
     
     // MARK: - Helper
     func modifyNutritionInfo() {
@@ -92,7 +202,7 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
 //          nutritionInfo?.removeValueForKey("leg_loc_id")
             
             
-            arrayofKeys = ["Calories", "Calories from Fat", "Total fat", "Saturated Fat", "Trans Fat", "Polyunsaturated Fat", "Monounsaturated Fat", "Cholesterol", "Sodium", "Total Carbohydrate", "Dietary Fiber", "Sugars", "Protein","Vitamin A", "Vitamin C", "Calcium", "Iron"]
+            variables.arrayofKeys = ["Calories", "Calories from Fat", "Total fat", "Saturated Fat", "Trans Fat", "Polyunsaturated Fat", "Monounsaturated Fat", "Cholesterol", "Sodium", "Total Carbohydrate", "Dietary Fiber", "Sugars", "Protein","Vitamin A", "Vitamin C", "Calcium", "Iron"]
 //            print(Int(nutritionInfo?["nf_calories"] as! Int))
             let info1 = nutritionInfo!["nf_calories"]
             let info2 = nutritionInfo?["nf_calories_from_fat"]
@@ -112,8 +222,7 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
             let info16 = nutritionInfo?["nf_calcium_dv"]
             let info17 = nutritionInfo?["nf_iron_dv"]
                 
-            arrayofValues = [info1!,info2!,info3!,info4!,info5!,info6!,info7!,info8!,info9!,info10!,info11!,info12!,info13!,info14!,info15!,info16!,info17!]
-//            arrayofValues = [Int(nutritionInfo!["nf_calories"] as? Int)!, Int(nutritionInfo?["nf_calories_from_fat"] as? Int), Int(nutritionInfo?["nf_total_fat"] as? Int), Int(nutritionInfo?["nf_saturated_fat"] as? Int), Int(nutritionInfo?["nf_trans_fatty_acid"] as? Int), Int(nutritionInfo?["nf_polyunsaturated_fat"] as? Int), Int(nutritionInfo?["nf_monounsaturated_fat"] as? Int), Int(nutritionInfo?["nf_cholesterol"] as? Int), Int(nutritionInfo?["nf_sodium"] as? Int), Int(nutritionInfo?["nf_total_carbohydrate"] as? Int), Int(nutritionInfo?["nf_dietary_fiber"] as? Int), Int(nutritionInfo?["nf_sugars"] as? Int), Int(nutritionInfo?["nf_protein"] as? Int), Int(nutritionInfo?["nf_vitamin_a_dv"] as? Int), Int(nutritionInfo?["nf_vitamin_c_dv"] as? Int), Int(nutritionInfo?["nf_calcium_dv"] as? Int), Int(nutritionInfo?["nf_iron_dv"] as? Int)]
+            variables.arrayofValues = [info1!,info2!,info3!,info4!,info5!,info6!,info7!,info8!,info9!,info10!,info11!,info12!,info13!,info14!,info15!,info16!,info17!]
         } else {
             debugPrint(nutritionInfoRaw)
         }
@@ -144,7 +253,7 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
             ]
             ))
         
-        print(queries.debugDescription)
+        //print(queries.debugDescription)
         let collection = KCSCollection(fromString: "PairingRequests", ofClass: PairingRequest.self)
         let store = KCSAppdataStore(collection: collection, options: nil)
         store.queryWithQuery(
@@ -155,11 +264,11 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
                     print("fetch failed, with error: %@", errorOrNil.localizedFailureReason)
                 } else {
                     //fetch was successful
-                    print(objectsOrNil)
+                    //print(objectsOrNil)
                     for object in objectsOrNil {
                         let obj = object as! PairingRequest
                         self.phoneNumbers.append(obj.phone!)
-                        print(self.phoneNumbers)
+                        //print(self.phoneNumbers)
                     }
                     if self.phoneNumbers.count >= 1 {
                         self.sendMessage()
@@ -176,7 +285,7 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
         let item_name = nutritionInfo!["item_name"]! as? String
         let brand_name = nutritionInfo!["brand_name"]! as? String
         messageVC.body = "Hi, I'm also buying " + brand_name! + ": " + item_name! + ", wanna pair up?";
-        print(self.phoneNumbers)
+        //print(self.phoneNumbers)
         messageVC.recipients = self.phoneNumbers
         messageVC.messageComposeDelegate = self;
         self.presentViewController(messageVC, animated: false, completion: nil)
@@ -215,9 +324,9 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         
-       cell.textLabel!.text = arrayofKeys![indexPath.row] // nutrition name
+       cell.textLabel!.text = variables.arrayofKeys![indexPath.row] // nutrition name
                 //let arrayOfKeys: [String]
-        let value = arrayofValues![indexPath.row]
+        let value = variables.arrayofValues![indexPath.row]
 //        print(nutritionInfo)
         if value is NSNull {
             cell.detailTextLabel?.text = "N/A"

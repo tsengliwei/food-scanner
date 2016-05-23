@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF380FE51CEC2EAF0043F802 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF380FE41CEC2EAF0043F802 /* DashboardViewController.swift */; };
 		C41D6DE98C90EAA1749CD5BD /* Pods_foodScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5366DBCA2CCE281EAC15632 /* Pods_foodScanner.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C42762521CE061630032EB67 /* PairingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42762511CE061630032EB67 /* PairingRequest.swift */; };
 		C45A558B1CCC1F7900616514 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45A558A1CCC1F7900616514 /* AppDelegate.swift */; };
@@ -16,12 +17,12 @@
 		C45A55971CCC1F7900616514 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C45A55951CCC1F7900616514 /* LaunchScreen.storyboard */; };
 		C45A559F1CCC88DF00616514 /* NutritionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45A559E1CCC88DF00616514 /* NutritionTableViewController.swift */; };
 		C4CC13C11CDAF86300ADB1D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC13C01CDAF86300ADB1D6 /* LoginViewController.swift */; };
-		C4CC13C31CDB003700ADB1D6 /* DashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC13C21CDB003700ADB1D6 /* DashboardTableViewController.swift */; };
 		C4CC13C51CDB006100ADB1D6 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC13C41CDB006100ADB1D6 /* AccountViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		21AC3EFA860D7F6352A4586E /* Pods-foodScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodScanner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-foodScanner/Pods-foodScanner.debug.xcconfig"; sourceTree = "<group>"; };
+		AF380FE41CEC2EAF0043F802 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		C42762511CE061630032EB67 /* PairingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingRequest.swift; sourceTree = "<group>"; };
 		C45A55871CCC1F7900616514 /* foodScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foodScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45A558A1CCC1F7900616514 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -33,7 +34,6 @@
 		C45A559E1CCC88DF00616514 /* NutritionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionTableViewController.swift; sourceTree = "<group>"; };
 		C4CC13BD1CDAF80200ADB1D6 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		C4CC13C01CDAF86300ADB1D6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		C4CC13C21CDB003700ADB1D6 /* DashboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewController.swift; sourceTree = "<group>"; };
 		C4CC13C41CDB006100ADB1D6 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		C5366DBCA2CCE281EAC15632 /* Pods_foodScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_foodScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E40F8F79E639B5541ED5F451 /* Pods-foodScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodScanner.release.xcconfig"; path = "Pods/Target Support Files/Pods-foodScanner/Pods-foodScanner.release.xcconfig"; sourceTree = "<group>"; };
@@ -91,11 +91,11 @@
 			children = (
 				C45A558A1CCC1F7900616514 /* AppDelegate.swift */,
 				C4CC13C01CDAF86300ADB1D6 /* LoginViewController.swift */,
-				C4CC13C21CDB003700ADB1D6 /* DashboardTableViewController.swift */,
 				C45A558E1CCC1F7900616514 /* ScannerViewController.swift */,
 				C45A559E1CCC88DF00616514 /* NutritionTableViewController.swift */,
 				C4CC13C41CDB006100ADB1D6 /* AccountViewController.swift */,
 				C45A55901CCC1F7900616514 /* Main.storyboard */,
+				AF380FE41CEC2EAF0043F802 /* DashboardViewController.swift */,
 				C45A55931CCC1F7900616514 /* Assets.xcassets */,
 				C45A55951CCC1F7900616514 /* LaunchScreen.storyboard */,
 				C45A55981CCC1F7900616514 /* Info.plist */,
@@ -140,6 +140,7 @@
 				TargetAttributes = {
 					C45A55861CCC1F7900616514 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 82R3ZDW365;
 					};
 				};
 			};
@@ -228,12 +229,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C42762521CE061630032EB67 /* PairingRequest.swift in Sources */,
-				C4CC13C31CDB003700ADB1D6 /* DashboardTableViewController.swift in Sources */,
 				C45A559F1CCC88DF00616514 /* NutritionTableViewController.swift in Sources */,
 				C4CC13C51CDB006100ADB1D6 /* AccountViewController.swift in Sources */,
 				C45A558F1CCC1F7900616514 /* ScannerViewController.swift in Sources */,
 				C45A558B1CCC1F7900616514 /* AppDelegate.swift in Sources */,
 				C4CC13C11CDAF86300ADB1D6 /* LoginViewController.swift in Sources */,
+				AF380FE51CEC2EAF0043F802 /* DashboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,11 +348,15 @@
 			baseConfigurationReference = 21AC3EFA860D7F6352A4586E /* Pods-foodScanner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = foodScanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.foodScanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "foodScanner/Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -360,11 +365,15 @@
 			baseConfigurationReference = E40F8F79E639B5541ED5F451 /* Pods-foodScanner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = foodScanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.foodScanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "foodScanner/Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

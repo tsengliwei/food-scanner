@@ -121,6 +121,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                         if error == nil {
                             // Signup successful
                             self.performSegueWithIdentifier("login", sender: self)
+                            KCSUser.activeUser().setValue(0, forAttribute:"calories")
+                            KCSUser.activeUser().setValue(0, forAttribute: "fat")
+                            KCSUser.activeUser().setValue(0, forAttribute: "carbo")
+                            KCSUser.activeUser().setValue(0, forAttribute: "protein")
+                            KCSUser.activeUser().setValue(0, forAttribute: "sodium")
+                            
+                            KCSUser.activeUser().saveWithCompletionBlock { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
+                                //print("saved user: %@ - %@", (errorOrNil == nil), errorOrNil)
+                            }
+
                         } else {
                             //there was an error with the create
                             if let errorString = error!.userInfo["error"] as? String {
@@ -158,6 +168,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                             alert.show()
                         }
                     }
+                    
                 )
                 
 //                PFUser.logInWithUsernameInBackground(username.text, password: password.text, block: { (user, error) -> Void in

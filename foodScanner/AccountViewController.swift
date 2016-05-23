@@ -14,6 +14,9 @@ class AccountViewController: UIViewController {
     
     @IBOutlet var id: UILabel!
     
+    @IBOutlet weak var diebete: UISwitch!
+    @IBOutlet weak var hypertension: UISwitch!
+    
     @IBAction func logout(sender: AnyObject) {
 //        PFUser.logOutInBackgroundWithBlock { (error) -> Void in
 //            if error == nil {
@@ -43,6 +46,21 @@ class AccountViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        if diebete.on {
+            variables.diebete = true
+        }
+        else {
+            variables.diebete = false
+        }
+        
+        if hypertension.on {
+            variables.hypertension = true
+        }
+        else {
+            variables.hypertension = false
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
