@@ -12,11 +12,26 @@ class AccountViewController: UIViewController {
     
     @IBOutlet var username: UILabel!
     
-    @IBOutlet var id: UILabel!
+    //@IBOutlet var id: UILabel!
     
     @IBOutlet weak var diebete: UISwitch!
     @IBOutlet weak var hypertension: UISwitch!
     
+    @IBAction func clear(sender: AnyObject) {
+        if KCSUser.activeUser() == nil {
+            print("fail")
+        } else { KCSUser.activeUser().setValue(0, forAttribute:"calories")
+        KCSUser.activeUser().setValue(0, forAttribute: "fat")
+        KCSUser.activeUser().setValue(0, forAttribute: "carbo")
+        KCSUser.activeUser().setValue(0, forAttribute: "protein")
+        KCSUser.activeUser().setValue(0, forAttribute: "sodium")
+        
+        KCSUser.activeUser().saveWithCompletionBlock { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
+            //print("saved user: %@ - %@", (errorOrNil == nil), errorOrNil)
+        }
+        }
+
+    }
     @IBAction func logout(sender: AnyObject) {
 //        PFUser.logOutInBackgroundWithBlock { (error) -> Void in
 //            if error == nil {
@@ -41,7 +56,7 @@ class AccountViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         if KCSUser.activeUser()?.kinveyObjectId() != nil {
-            id.text = KCSUser.activeUser().userId
+            //id.text = KCSUser.activeUser().userId
             username.text = KCSUser.activeUser().username
         }
     }

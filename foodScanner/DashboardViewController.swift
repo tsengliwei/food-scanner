@@ -61,6 +61,12 @@ class DashboardViewController: UIViewController {
                 self.view2.alpha = 0
             })
         }
+        else if variables.diebete == true && variables.hypertension == true {
+            calLimit = Float(1500)
+            carboLimit = Float(200)
+            sodiumLimit = Float(2300)
+            sodiumLimit = Float(120)
+        }
         else if variables.diebete == false && variables.hypertension == false{
             self.view1.alpha = 1
             self.view3.alpha = 0
@@ -71,20 +77,18 @@ class DashboardViewController: UIViewController {
         calories.progress = Float(KCSUser.activeUser().getValueForAttribute("calories") as! Double)/calLimit
         fatlabel.text = ("\(KCSUser.activeUser().getValueForAttribute("fat"))/\(fatLimit)")
         fatpro.progress = Float(KCSUser.activeUser().getValueForAttribute("fat") as! Double)/fatLimit
-        carbolabel.text = ("\(KCSUser.activeUser().getValueForAttribute("carbo"))/\(fatLimit)")
+        carbolabel.text = ("\(KCSUser.activeUser().getValueForAttribute("carbo"))/\(carboLimit)")
         carbopro.progress = Float(KCSUser.activeUser().getValueForAttribute("carbo") as! Double)/carboLimit
-        proteinlabel.text = ("\(KCSUser.activeUser().getValueForAttribute("protein"))/\(carboLimit)")
+        proteinlabel.text = ("\(KCSUser.activeUser().getValueForAttribute("protein"))/\(proteinLimit)")
         proteinpro.progress = Float(KCSUser.activeUser().getValueForAttribute("protein") as! Double)/proteinLimit
         sodiumlabel.text = ("\(KCSUser.activeUser().getValueForAttribute("sodium"))/\(sodiumLimit)")
         sodiumpro.progress = Float(KCSUser.activeUser().getValueForAttribute("sodium") as! Double)/sodiumLimit
         
         KCSUser.activeUser().refreshFromServer{ (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
         }
-        
-        
-        
     }
-        
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
