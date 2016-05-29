@@ -56,13 +56,7 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
     }
     
     
-    @IBAction func post(sender: AnyObject) {
-        
-        if shareSwitch.on {
-            print("Switch is on")
-        } else {
-            print("Switch is off")
-        }
+    @IBAction func post(sender: AnyObject) {        
         let savedcal = KCSUser.activeUser().getValueForAttribute("calories") as! Int
         let savedfat = KCSUser.activeUser().getValueForAttribute("fat") as! Int
         let savedcarbo = KCSUser.activeUser().getValueForAttribute("carbo") as! Int
@@ -73,19 +67,7 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
         variables.carbo = nutritionInfo?["nf_total_carbohydrate"] as! Int + savedcarbo
         variables.protein = nutritionInfo?["nf_protein"] as! Int + savedprotein
         variables.sodium = nutritionInfo?["nf_sodium"] as! Int + savedsodium
-        print("helloo")
-print(variables.cal)
-        
-        
-        KCSUser.activeUser().setValue(variables.cal, forAttribute:"calories")
-        KCSUser.activeUser().setValue(variables.fat, forAttribute: "fat")
-        KCSUser.activeUser().setValue(variables.carbo, forAttribute: "carbo")
-        KCSUser.activeUser().setValue(variables.protein, forAttribute: "protein")
-        KCSUser.activeUser().setValue(variables.sodium, forAttribute: "sodium")
-        
-        KCSUser.activeUser().saveWithCompletionBlock { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
-            //print("saved user: %@ - %@", (errorOrNil == nil), errorOrNil)
-        }
+//        print(variables.cal)
         
         
         let request = PairingRequest()
@@ -107,7 +89,7 @@ print(variables.cal)
                 } else {
                     //save was successful
                     
-                    print("Successfully saved request (id='%@').", (objectsOrNil[0] as! NSObject).kinveyObjectId())
+                    print("Successfully saved")
                 }
             },
             withProgressBlock: nil)
@@ -116,9 +98,22 @@ print(variables.cal)
             pair()
         } else {
           print("Switch is off")
-             //self.performSegueWithIdentifier("dashboard", sender: self)
+          let alert = UIAlertController(title: "Saved!", message:"Your Daily Nutrition is updated!", preferredStyle: .Alert)
+          alert.addAction(UIAlertAction(title: "OK", style: .Default) { _ in
+            self.navigationController?.popViewControllerAnimated(true)
+          })
+          self.presentViewController(alert, animated: true){}
+            //self.performSegueWithIdentifier("dashboard", sender: self)
         }
        
+        KCSUser.activeUser().setValue(variables.cal, forAttribute:"calories")
+        KCSUser.activeUser().setValue(variables.fat, forAttribute: "fat")
+        KCSUser.activeUser().setValue(variables.carbo, forAttribute: "carbo")
+        KCSUser.activeUser().setValue(variables.protein, forAttribute: "protein")
+        KCSUser.activeUser().setValue(variables.sodium, forAttribute: "sodium")
+        KCSUser.activeUser().saveWithCompletionBlock { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
+            //print("saved user: %@ - %@", (errorOrNil == nil), errorOrNil)
+        }
     }
     
     
@@ -218,10 +213,24 @@ print(variables.cal)
                     for object in objectsOrNil {
                         let obj = object as! PairingRequest
                         self.phoneNumbers.append(obj.phone!)
-                        //print(self.phoneNumbers)
+                        print(self.phoneNumbers)
                     }
-                    if self.phoneNumbers.count >= 1 {
-                        self.sendMessage()
+                    if self.phoneNumbers.count >= 1 { // matched
+                        let alert = UIAlertController(title: "Matched", message:"You are matched with a buyer!", preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .Default) { action -> Void in
+                            self.sendMessage()
+                            self.navigationController?.popViewControllerAnimated(true)
+                        })
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .Default) { action -> Void in
+                            self.navigationController?.popViewControllerAnimated(true)
+                        })
+                        self.presentViewController(alert, animated: true){}
+                    } else {
+                        let alert = UIAlertController(title: "Please wait", message:"We will update you when you are matched!", preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .Default) { _ in
+                            self.navigationController?.popViewControllerAnimated(true)
+                        })
+                        self.presentViewController(alert, animated: true){}
                     }
                 }
                 
