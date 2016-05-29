@@ -207,11 +207,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     override func viewDidAppear(animated: Bool) {
         if KCSUser.activeUser() == nil {
             //show log-in views
-            print("not log in")
+//            print("not log in")
         } else {
             //user is logged in and will be loaded on first call to Kinvey
             self.performSegueWithIdentifier("login", sender: self)
-            print("log in")
+//            print("log in")
+//            print("user id: " + KCSUser.activeUser().userId)
         }
     }
     

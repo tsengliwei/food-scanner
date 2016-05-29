@@ -37,9 +37,9 @@ class DashboardViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         var calLimit = Float(2000)
-        var fatLimit = Float(65)
+        let fatLimit = Float(65)
         var carboLimit = Float(300)
-        var proteinLimit = Float(50)
+        let proteinLimit = Float(50)
         var sodiumLimit = Float(2400)
         
         

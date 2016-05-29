@@ -21,13 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             withAppSecret: "f0ae8dc21452481dbe0a8e7e4b1185da",
             usingOptions: nil
         )
-        KCSPing.pingKinveyWithBlock { (result: KCSPingResult!) -> Void in
-            if result.pingWasSuccessful {
-                NSLog("Kinvey Ping Success")
-            } else {
-                NSLog("Kinvey Ping Failed")
-            }
-        }
+//        KCSPing.pingKinveyWithBlock { (result: KCSPingResult!) -> Void in
+//            if result.pingWasSuccessful {
+//                NSLog("Kinvey Ping Success")
+//            } else {
+//                NSLog("Kinvey Ping Failed")
+//            }
+//        }
         return true
     }
 
