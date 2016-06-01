@@ -73,7 +73,6 @@ class DashboardViewController: UIViewController {
             self.view2.alpha = 0
         }
         callabel.text = ("\(KCSUser.activeUser().getValueForAttribute("calories"))/\(calLimit)")
-        print(KCSUser.activeUser().getValueForAttribute("calories"))
         calories.progress = Float(KCSUser.activeUser().getValueForAttribute("calories") as! Double)/calLimit
         fatlabel.text = ("\(KCSUser.activeUser().getValueForAttribute("fat"))/\(fatLimit)")
         fatpro.progress = Float(KCSUser.activeUser().getValueForAttribute("fat") as! Double)/fatLimit

@@ -69,56 +69,6 @@ class NutritionTableViewController: UITableViewController, CLLocationManagerDele
         variables.sodium = nutritionInfo?["nf_sodium"] as! Int + savedsodium
 //        print(variables.cal)
         
-        //        let savedCal = KCSUser.activeUser().getValueForAttribute("calories") as? NSValue
-        
-        //        let userinfo = userInfo()
-//        let collection1 = KCSCollection(fromString: "userinfo", ofClass: userInfo.self)
-//        let store1 = KCSAppdataStore(collection: collection1, options: nil)
-//        
-//        userinfo.calories = nutritionInfo?["nf_calories"] as? NSValue
-//        userinfo.fat = nutritionInfo?["nf_total_fat"] as? NSValue
-//        userinfo.carbo = nutritionInfo?["nf_total_carbohydrate"] as? NSValue
-//        userinfo.protein = nutritionInfo?["nf_protein"] as? NSValue
-//        userinfo.sodium = nutritionInfo?["nf_sodium"] as? NSValue
-//        
-//        userinfo.date = NSDate(timeIntervalSince1970: 1352149171) //sample date
-//        store1.saveObject(
-//            userinfo,
-//            withCompletionBlock: { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
-//                if errorOrNil != nil {
-//                    //save failed
-//                    print("Save failed, with error: %@", errorOrNil.localizedFailureReason)
-//                } else {
-//                    //save was successful
-//                    print("Successfully saved event (id='%@').", (objectsOrNil[0] as! NSObject).kinveyObjectId())
-//                    print("my id is '%@'", userinfo)
-//                }
-//            },
-//            withProgressBlock: nil
-//        )
-//        
-//        let queries = KCSQuery(
-//            onField: "item_name",
-//            withExactMatchForValue: nutritionInfo!["item_name"]! as? String
-//        )
-//
-//        let myId = KCSUser.activeUser().userId
-//        print(myId)
-//        store1.loadObjectWithID(
-//            myId,
-//            withCompletionBlock: { (objectsOrNil: [AnyObject]!, errorOrNil: NSError!) -> Void in
-//                if errorOrNil == nil {
-//                    let myInfo = objectsOrNil[0] as! userInfo
-//                    variables.cal = myInfo.calories // will be realized Invitation object
-//                    variables.fat = myInfo.fat
-//                    variables.carbo = myInfo.carbo
-//                    variables.protein = myInfo.protein
-//                    variables.sodium = myInfo.sodium
-//                    print("hello world")
-//                }
-//            },
-//            withProgressBlock: nil
-//        )
         
         let request = PairingRequest()
         let collection = KCSCollection(fromString: "PairingRequests", ofClass: PairingRequest.self)
