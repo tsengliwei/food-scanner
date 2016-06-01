@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9837629E8E542AD0F465065B"
+               BlueprintIdentifier = "8FD7223E9EA23E486F1761D7"
                BuildableName = "Chatto.framework"
                BlueprintName = "Chatto"
                ReferencedContainer = "container:Pods.xcodeproj">
